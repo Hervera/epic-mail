@@ -1,0 +1,99 @@
+body{
+    background: #c1bdba;
+    font-family: 'Titillium Web', sans-serif;
+}
+
+body h2{
+    text-transform: uppercase;
+}
+
+.my-form{
+    width: 35%;
+    margin: 0 auto;
+    background: #FFF;
+    padding: 20px;
+}
+.my-form h2{
+    text-align: center;
+    margin-bottom: 40px;
+}
+input{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+.check {
+    padding: 10px;
+    border: 2px solid #392929;
+    background: #392929;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.btn-sign-up{
+    background: #0894A1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #0894A1;
+    margin:20px auto;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+#input-errors{
+    color: #D8000C;
+    /*background-color: #FFBABA;*/
+    margin: 20px 0px;
+    width: 80%;
+}
+
+.tab-group .active a {
+    background: #1ab188;
+    color: #ffffff;
+}
+
+.tab-group li a {
+    display: block;
+    text-decoration: none;
+    padding: 15px;
+    background: rgba(160, 179, 176, 0.25);
+    color: #a0b3b0;
+    font-size: 20px;
+    float: left;
+    width: 50%;
+    text-align: center;
+    cursor: pointer;
+    transition: .5s ease;
+    width: 100%;
+}
+
+ul li{
+    display: inline-block;
+    width: 46%;
+}
+.tab-group {
+    list-style: none;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 0px 0px 30px;
+    padding: 0px;
+}
+.signup{
+    text-align: center;
+}
+.first-name, .last-name{
+    display: inline-block;
+    vertical-align: top;
+    width: 49.5%;
+}
+
+.field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
