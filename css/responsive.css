@@ -1,0 +1,13 @@
+@media all and (max-width: 1200px){
+	.first-name, .last-name{
+	    width: 30%;
+	}
+}
+
+@media all and (max-width: 480px){
+	.first-name, .last-name{
+	    display: inline-block;
+	    width: 100%;
+	}
+}
+
