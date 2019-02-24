@@ -7,12 +7,21 @@ body h2{
     text-transform: uppercase;
 }
 
-.tab-group .active a {
+/*Tab links*/
+.tab-group {
+    list-style: none;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 0px 0px 30px;
+    padding: 0px;
+}
+
+.tab-group .active a , .tab-header .active a{
     background: #1ab188;
     color: #ffffff;
 }
 
-.tab-group li a {
+.tab-group li a{
     display: block;
     text-decoration: none;
     padding: 15px;
@@ -27,22 +36,31 @@ body h2{
     width: 100%;
 }
 
+
+.tab-header li a {
+    text-decoration: none;
+    padding: 15px;
+    background: rgba(160, 179, 176, 0.25);
+    color: #a0b3b0;
+    font-size: 20px;
+    width: 50%;
+    text-align: center;
+    cursor: pointer;
+    transition: .5s ease;
+    width: 100%;
+}
+
 ul li{
     display: inline-block;
     width: 46%;
 }
-.tab-group {
-    list-style: none;
-    font-size: 20px;
-    cursor: pointer;
-    margin: 0px 0px 30px;
-    padding: 0px;
+hr {
+    color: #1ab188;
 }
 
 
-
-
 /*form input styles*/
+
 .my-form{
     width: 35%;
     margin: 0 auto;
@@ -59,6 +77,8 @@ ul li{
     margin: 8px 0;
     box-sizing: border-box;
     width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 .input-field {
@@ -99,6 +119,12 @@ ul li{
     display: inline-block;
     vertical-align: top;
     width: 49.5%;
+}
+
+
+.input-control[readonly]{
+    background-color: #eee;
+    opacity: 1;
 }
 
 
