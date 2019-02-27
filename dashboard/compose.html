@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Compose mail</title>
+  <link rel="stylesheet" href="css/hervera.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <style>
+  </style>
+</head>
+<body>
+
+<header role="banner">
+  <h1>EPIC Mail App</h1>
+  <button id="menuBars" class="" onclick="bars_open()"><span class="fa fa-bars"></span></button>
+  <ul class="utilities">
+    <li class="users"><a href="#"><i class="fa fa-user"></i>Username</a></li>
+    <li class="logout warn"><a href=""><i class="fa fa-sign-out"></i>Log Out</a></li>
+  </ul>
+</header>
+
+<div id="main-content">
+  <!-- BEGIN Main Content -->
+  <div class="mail-page">
+    <div class="mail-nav" id="aside-nav">
+      <ul>
+        <li><a href="groups.html"><i class="fa fa-group"></i>Groups</a></li>
+        <li class="active"><a href="compose.html"><i class="fa fa-edit"></i> Compose</a></li>
+        <li><a href="inbox.html"><i class="fa fa-envelope"></i> Inbox (3)</a></li>
+        <li><a href="sent.html"><i class="fa fa-rocket"></i> Sent</a></li>
+        <li><a href="draft.html"><i class="fa fa-file-text-o"></i> Drafts</a></li>
+        <li><a href="trash.html"><i class="fa fa-trash-o"></i> Trash</a></li>
+      </ul>
+    </div>
+
+    <div class="mail-content" id="main">
+      <div id="current-pages">
+        <ul class="current-page">
+          <li>
+            <span class="divider"><i class="fa fa-angle-right"></i></span>
+          </li>
+          <li class="active">Compose mail</li>
+        </ul>
+      </div>
+
+      <div class="section-part" style="width: 100%">
+        <section class="widget important">
+          <h2>Write your message</h2>
+          <form action="#" method="">
+            <div class="message-form">
+              <input type="text" name="to" id="to" placeholder="To:" />
+
+              <input type="text" name="subject" id="subject" placeholder="Subject:" />
+
+              <textarea cols="40" rows="8" name="textarea" id="textarea"></textarea>
+
+              <div>
+                <input type="submit" value="Send" />
+              </div>
+            </div>
+          </form>
+        </section>
+     </div>
+       
+    </div>
+</div>
+<!-- END Main Content -->
+
+
+  <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#" style="display: none;"><i
+      class="fa fa-chevron-up"></i></a>
+</div>
+
+<script type="text/javascript" src="js/hervera.js"></script>
+</body>
+</html>
