@@ -17,7 +17,7 @@ body h2{
 }
 
 .tab-group .active a , .tab-header .active a{
-    background: #1ab188;
+    background: #0894A1;
     color: #ffffff;
 }
 
@@ -66,6 +66,10 @@ hr {
     margin: 0 auto;
     background: #FFF;
     padding: 20px;
+    -webkit-border-radius: .3rem;
+    -moz-border-radius: .3rem;
+    -ms-border-radius: .3rem;
+    border-radius: .3rem;
 }
 .my-form h2{
     text-align: center;
