@@ -1,0 +1,108 @@
+@media screen and (min-width: 600px) {
+  html, body {
+    height: 100%;
+  }
+
+  header[role=banner] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+    height: 40px;
+  }
+  header[role=banner] .utilities {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: transparent;
+    color: darkslategray;
+    width: auto;
+  }
+  header[role=banner] .utilities li {
+    display: inline-block;
+  }
+
+  nav[role=navigation] {
+    position: fixed;
+    width: 200px;
+    top: 50px;
+    bottom: 0px;
+    border-top-right-radius: 4px;
+  }
+
+
+  .widget {
+    float: left;
+    width: 100%;
+  }
+  .widget:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .part-left{
+    margin-right: 1%;
+  }
+
+  .part-right{
+    margin-left: 1%;
+    float: left;
+  }
+
+
+  /*Form inputs*/
+  .box, .onethird, .twothirds {
+    padding: 1rem;
+  }
+
+  .onethird {
+    width: 33.333%;
+    float: left;
+  }
+
+  .twothirds {
+    width: 66%;
+    float: left;
+  }
+
+
+  .message-form {
+    width: 100%;
+    padding: 0 3%;
+    float: left;
+  }
+
+  .message-form input,
+  .message-form textarea{
+      margin-bottom: 20px; 
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .widget {
+    width: 49%;
+    clear: none;
+  }
+  .widget.important {
+    width: 100%;
+  }
+  .widget.secondary {
+    width: 23%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .mail-nav{
+    top: 135px;
+  }
+
+  #main-content {
+    margin-top: 20px;
+  }
+
+ /* .mail-content {
+      margin-left: 15px;
+  }*/
+}
