@@ -16,13 +16,12 @@
 
 /* Set a style for all buttons */
 #button {
-  background-color: #083545;
+  background-color: #40e0d0;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
   cursor: pointer;
-  width: 100%;
 }
 
 button:hover {
@@ -33,9 +32,9 @@ button:hover {
 .cancelbtn {
   width: auto;
   padding: 10px 18px;
-  background-color: #083545;
+  background-color: #c0c5c4;
   color:white;
-  border: 1px solid #083545;
+  border: 1px solid #c0c5c4;
 }
 
 span.psw {

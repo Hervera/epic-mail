@@ -54,8 +54,8 @@
                 <td>Group 1</td>
                 <td>
                   <a title="View" onclick="document.getElementById('view_modal').style.display='block'" class="view-btn"><span class="blue fa fa-eye"></span></a>
-                  <a href="" title="Edit" class="edit-btn"><span class="green fa fa-pencil"></span></a>
-                  <a href="" title="Delete" class="delete-btn" value=""><span class="red fa fa-trash-o"></span>
+                  <a onclick="document.getElementById('edit_modal').style.display='block'" title="Edit" class="edit-btn"><span class="green fa fa-pencil"></span></a>
+                  <a onclick="document.getElementById('delete_modal').style.display='block'" title="Delete" class="delete-btn" value=""><span class="red fa fa-trash-o"></span>
                   </a>
                 </td>
               </tr>
@@ -128,6 +128,7 @@
 </div>
 <!-- END Main Content -->
 </div>
+
 <!-- View modal contents -->
 <div id="view_modal" class="view_modal">
   <div class="modal-content animate">
@@ -145,6 +146,58 @@
       </div>
     </div>
     <div class="mdl-footer">
+    </div>
+  </div>
+</div>
+
+
+<!-- Edit modal contents -->
+<div id="edit_modal" class="edit_modal">
+  <div class="modal-content animate">
+    <span onclick="document.getElementById('edit_modal').style.display='none'" class="close-modal" title="Close Modal">&times;</span>
+    <form method="" action="">
+      <div class="mdl-header">
+        <h3 class="text-center title">Edit Group - (Group name)</h3>
+      </div>
+      <div class="mdl-body">
+          <div class="alert alert-danger edit-alert" style="display:none"></div>
+          <label for="psw"><b>Group users</b></label>
+          <textarea type="text" name="name" id="name" placeholder="user1, user2, user3 ..." rows="6"></textarea>
+          <div class="alert alert-danger edit-alert-password" style="display:none"></div>
+      </div>
+      <div class="mdl-footer">
+          <div class="modalcontainer cont-edit">
+            <button type="button" onclick="document.getElementById('edit_modal').style.display='none'" class="cancelbtn">Cancel</button>
+            <button type="button" class="edit-bt btn-blue">Update group</button>
+          </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Edit modal contents -->
+<div id="delete_modal" class="delete_modal">
+  <div class="modal-content animate">
+    <span onclick="document.getElementById('delete_modal').style.display='none'" class="close-modal" title="Close Modal">&times;</span>
+    <div class="mdl-header">
+      <h3 class="text-center title">Delete Group 1</h3>
+    </div>
+    <div class="mdl-body">
+      <div class="group-users">
+        <p>Are you sure, you want to delete this Group(group name)?</p>
+        <br>
+          <span>User 1</span>,
+          <span>User 2</span>,
+          <span>User 3</span>,
+          <span>User 4</span>,
+          <span>User 5</span>
+      </div>
+    </div>
+    <div class="mdl-footer">
+      <div class="modalcontainer cont-delete">
+        <button type="button" onclick="document.getElementById('delete_modal').style.display='none'" class="cancelbtn">Cancel</button>
+        <button type="button" class="delete-bt">Delete</button>
+      </div>
     </div>
   </div>
 </div>

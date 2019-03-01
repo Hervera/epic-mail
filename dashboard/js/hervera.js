@@ -78,3 +78,26 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+// Collapse
+var coll = document.getElementsByClassName("msg-collapse");
+var i;
+
+var container = document.getElementById("mail-msg-container");
+var chevron = document.getElementById("chevron");
+container.style.display = "block";
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    if (container.style.display === "block") {
+      container.style.display = "none";
+      chevron.classList.remove("fa-chevron-down");
+      chevron.classList.add("fa-chevron-up");
+    } else {
+      container.style.display = "block";
+      chevron.classList.remove("fa-chevron-up");
+      chevron.classList.add("fa-chevron-down");
+    }
+  });
+} 
