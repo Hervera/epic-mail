@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Groups</title>
   <link rel="stylesheet" href="css/hervera.css">
   <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/modals_styling.css">
   <link rel="stylesheet" href="css/font-awesome.min.css">
   <style>
   </style>
@@ -22,7 +25,7 @@
 <div id="main-content">
   <!-- BEGIN Main Content -->
   <div class="mail-page">
-    <div class="mail-nav" id="aside-nav">
+    <div class="mail-nav disp-block" id="aside-nav">
       <ul>
         <li class="active"><a href="groups.html"><i class="fa fa-group"></i>Groups</a></li>
         <li><a href="compose.html"><i class="fa fa-edit"></i> Compose</a></li>
@@ -51,55 +54,55 @@
               <tr>
                 <td>Group 1</td>
                 <td>
-                  <a href="" class="btn btn-success btn-sm"><span class="fa fa-eye"></span></a>
-                  <a href="" class="btn btn-primary btn-sm"><span class="fa fa-pencil"></span></a>
-                  <button class="btn btn-danger btn-sm btn-delete delete-modal" data-id="" data-title="" value=""><span class="fa fa-trash-o"></span>
-                  </button>
+                  <a title="View" onclick="document.getElementById('view_modal').style.display='block'" class="view-btn"><span class="blue fa fa-eye"></span></a>
+                  <a href="" title="Edit" class="edit-btn"><span class="green fa fa-pencil"></span></a>
+                  <a href="" title="Delete" class="delete-btn" value=""><span class="red fa fa-trash-o"></span>
+                  </a>
                 </td>
               </tr>
               <tr>
                 <td>Group 2</td>
                 <td>
-                  <a href="" class="btn btn-success btn-sm"><span class="fa fa-eye"></span></a>
-                  <a href="" class="btn btn-primary btn-sm"><span class="fa fa-pencil"></span></a>
-                  <button class="btn btn-danger btn-sm btn-delete delete-modal" data-id="" data-title="" value=""><span class="fa fa-trash-o"></span>
-                  </button>
+                  <a href="" title="View" class="view-btn"><span class="blue fa fa-eye"></span></a>
+                  <a href="" title="Edit" class="edit-btn"><span class="green fa fa-pencil"></span></a>
+                  <a href="" title="Delete" class="delete-btn" value=""><span class="red fa fa-trash-o"></span>
+                  </a>
                 </td>
               </tr>
               <tr>
                 <td>Group 3</td>
                 <td>
-                  <a href="" class="btn btn-success btn-sm"><span class="fa fa-eye"></span></a>
-                  <a href="" class="btn btn-primary btn-sm"><span class="fa fa-pencil"></span></a>
-                  <button class="btn btn-danger btn-sm btn-delete delete-modal" data-id="" data-title="" value=""><span class="fa fa-trash-o"></span>
-                  </button>
+                  <a href="" title="View" class="view-btn"><span class="blue fa fa-eye"></span></a>
+                  <a href="" title="Edit" class="edit-btn"><span class="green fa fa-pencil"></span></a>
+                  <a href="" title="Delete" class="delete-btn" value=""><span class="red fa fa-trash-o"></span>
+                  </a>
                 </td>
               </tr>
               <tr>
                 <td>Group 4</td>
                 <td>
-                  <a href="" class="btn btn-success btn-sm"><span class="fa fa-eye"></span></a>
-                  <a href="" class="btn btn-primary btn-sm"><span class="fa fa-pencil"></span></a>
-                  <button class="btn btn-danger btn-sm btn-delete delete-modal" data-id="" data-title="" value=""><span class="fa fa-trash-o"></span>
-                  </button>
+                  <a href="" title="View" class="view-btn"><span class="blue fa fa-eye"></span></a>
+                  <a href="" title="Edit" class="edit-btn"><span class="green fa fa-pencil"></span></a>
+                  <a href="" title="Delete" class="delete-btn" value=""><span class="red fa fa-trash-o"></span>
+                  </a>
                 </td>
               </tr>
               <tr>
                 <td>Group 5</td>
                 <td>
-                  <a href="" class="btn btn-success btn-sm"><span class="fa fa-eye"></span></a>
-                  <a href="" class="btn btn-primary btn-sm"><span class="fa fa-pencil"></span></a>
-                  <button class="btn btn-danger btn-sm btn-delete delete-modal" data-id="" data-title="" value=""><span class="fa fa-trash-o"></span>
-                  </button>
+                  <a href="" title="View" class="view-btn"><span class="blue fa fa-eye"></span></a>
+                  <a href="" title="Edit" class="edit-btn"><span class="green fa fa-pencil"></span></a>
+                  <a href="" title="Delete" class="delete-btn" value=""><span class="red fa fa-trash-o"></span>
+                  </a>
                 </td>
               </tr>
               <tr>
                 <td>Group 6</td>
                 <td>
-                  <a href="" class="btn btn-success btn-sm"><span class="fa fa-eye"></span></a>
-                  <a href="" class="btn btn-primary btn-sm"><span class="fa fa-pencil"></span></a>
-                  <button class="btn btn-danger btn-sm btn-delete delete-modal" data-id="" data-title="" value=""><span class="fa fa-trash-o"></span>
-                  </button>
+                  <a href="" title="View" class="view-btn"><span class="blue fa fa-eye"></span></a>
+                  <a href="" title="Edit" class="edit-btn"><span class="green fa fa-pencil"></span></a>
+                  <a href="" title="Delete" class="delete-btn" value=""><span class="red fa fa-trash-o"></span>
+                  </a>
                 </td>
               </tr>
           </table>
@@ -125,10 +128,26 @@
     </div>
 </div>
 <!-- END Main Content -->
-
-
-  <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#" style="display: none;"><i
-      class="fa fa-chevron-up"></i></a>
+</div>
+<!-- View modal contents -->
+<div id="view_modal" class="view_modal">
+  <div class="modal-content animate">
+    <span onclick="document.getElementById('view_modal').style.display='none'" class="close-modal" title="Close Modal">&times;</span>
+    <div class="mdl-header">
+      <h3 class="text-center title">Group 1</h3>
+    </div>
+    <div class="mdl-body">
+      <div class="group-users">
+          <span>User 1</span>,
+          <span>User 2</span>,
+          <span>User 3</span>,
+          <span>User 4</span>,
+          <span>User 5</span>
+      </div>
+    </div>
+    <div class="mdl-footer">
+    </div>
+  </div>
 </div>
 
 <script type="text/javascript" src="js/hervera.js"></script>
