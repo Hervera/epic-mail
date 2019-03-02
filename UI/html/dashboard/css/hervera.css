@@ -296,6 +296,8 @@ td {
 .btn-blue{
   background-color: #0090ff;
   color: #fff;
+  padding: 10px;
+  border: none;
 }
 
 .edit-bt,
