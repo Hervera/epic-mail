@@ -1,0 +1,23 @@
+{
+  "name": "epicmail",
+  "version": "1.0.0",
+  "description": "EPIC Mail",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hervera/epic-mail.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hervera/epic-mail/issues"
+  },
+  "homepage": "https://github.com/Hervera/epic-mail#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "save": "^2.3.3"
+  }
+}
