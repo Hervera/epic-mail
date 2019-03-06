@@ -2,7 +2,7 @@ import Joi from "joi";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import User from "../models/User";
-import validate from "../middleware/validate";
+import validate from "../helpers/validation";
 
 //Mock user
 const users = [
