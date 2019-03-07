@@ -1,23 +1,18 @@
-import Joi from "joi";
+import Joi from 'joi';
 
 const userSchema = Joi.object().keys({
-    firstname: Joi.string().alphanum().min(5).max(15)
-        .required(),
-    lastname: Joi.string().alphanum().min(5).max(15)
-        .required(),
-    email: Joi.string().email({ minDomainAtomas: 2 })
-        .required(),
-    password: Joi.string().alphanum().min(3).max(15)
-        .required(),
+    firstName: Joi.string().alphanum().min(3).max(20).required(),
+    lastName: Joi.string().alphanum().min(3).max(20).required(),
+    email: Joi.string().email({ minDomainAtoms: 2 }).required(),
+    password: Joi.string().min(6).max(20).required(),
+    isAdmin: Joi.boolean().allow(null),
 });
 
 const loginSchema = Joi.object().keys({
-    email: Joi.string().email({ minDomainAtomas: 2 })
-        .required(),
-    password: Joi.string().alphanum().min(3).max(15)
-        .required(),
+    email: Joi.string().email({ minDomainAtoms: 2 }).required(),
+    password: Joi.string().min(6).max(20).required(),
 });
 
 export default {
-    userSchema, loginSchema
+    userSchema, loginSchema,
 };

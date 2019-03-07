@@ -1,13 +1,14 @@
 class User {
-
-    constructor(id, firstname, lastname, email, password) {
+    constructor(id, firstName, lastName, email, password, confirmed, isAdmin, createdOn) {
         this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.confirmed = confirmed;
+        this.isAdmin = isAdmin;
+        this.createdOn = createdOn;
     }
-
 }
 
 export default User;
