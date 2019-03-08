@@ -54,7 +54,7 @@
 
   /*Form inputs*/
   .box, .onethird, .twothirds {
-    padding: 1rem;
+    padding-left: 1rem;
   }
 
   .onethird {

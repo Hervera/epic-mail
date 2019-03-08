@@ -107,6 +107,7 @@ nav[role=navigation] li a:before {
   -moz-border-radius: .3rem;
   -ms-border-radius: .3rem;
   border-radius: .3rem;
+  min-height: 400px;
 }
 
 .widget > h2, .widget > ul {
@@ -167,8 +168,12 @@ form input[type=checkbox], form input[type=radio] {
 }
 form label, form legend {
   display: block;
-  margin: 1em 0 .5em;
+  /* margin: 0 0 1em; */
 }
+.in-group{
+  margin-bottom: 10px;
+}
+
 form input[type=submit] {
   background: turquoise;
   border: none;
@@ -315,7 +320,7 @@ td {
 
 
 .delete-bt{
-  background: #e6301f;
+  background: #e44d15;
 }
 
 .mdl-footer{
