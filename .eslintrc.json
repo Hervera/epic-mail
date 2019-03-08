@@ -14,11 +14,9 @@
         "sourceType": "module"
     },
     "rules": {
-        "no-use-before-define": [
-            "error",
+        "import/no-extraneous-dependencies": [
             {
-                "variables": false,
-                "functions": false
+                "devDependencies": true
             }
         ],
         "indent": "off",
@@ -41,4 +39,6 @@
         "no-case-declarations": "off",
         "import/prefer-default-export": "off"
     }
+            
+   
 }
