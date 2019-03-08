@@ -1,14 +1,15 @@
 import express from 'express';
+import auth from '../middleware/auth';
 import messageController from '../controllers/messageController';
 
 const router = express.Router();
 
-router.post("/", messageController.sendMail);
-router.get("/", messageController.receivedEmails);
-router.get("/sent", messageController.sentEmails);
-router.get("/read", messageController.receivedReadEmails);
-router.get("/unread", messageController.receivedUnreadEmails);
-router.get("/:id", messageController.showSpecificEmail);
-router.delete("/:id", messageController.deleteSpecificEmail);
+router.post("/", auth.verifyToken, messageController.sendMail);
+router.get("/", auth.verifyToken, messageController.receivedEmails);
+router.get("/sent", auth.verifyToken, messageController.sentEmails);
+router.get("/read", auth.verifyToken, messageController.receivedReadEmails);
+router.get("/unread", auth.verifyToken, messageController.receivedUnreadEmails);
+router.get("/:id", auth.verifyToken, messageController.showSpecificEmail);
+router.delete("/:id", auth.verifyToken, messageController.deleteSpecificEmail);
 
 export default router;
