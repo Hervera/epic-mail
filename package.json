@@ -4,10 +4,9 @@
   "description": "EPIC Mail",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint server/app.js",
+    "test": "mocha --require babel-polyfill --require @babel/register ./server/tests --timeout 1200 --exit",
     "start": "nodemon --exec babel-node server/app.js",
-    "build": "babel src --out-dir dist",
-    "test": "mocha ./server/tests/*"
+    "build": "babel src --out-dir dist"
   },
   "repository": {
     "type": "git",
@@ -36,8 +35,10 @@
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.3.4",
     "@babel/register": "^7.0.0",
+    "babel-polyfill": "^6.26.0",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
+    "chai-things": "^0.2.0",
     "eslint": "^5.15.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.16.0",
