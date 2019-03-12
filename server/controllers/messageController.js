@@ -24,21 +24,21 @@ const messages = {
         } else {
             const trueSender = mock.contacts.filter(sender => sender.id === senderId);
             if (trueSender.length === 0) {
-                res.status(404).json({
-                    status: 404,
+                return res.status(404).json({
+                    status: res.statusCode,
                     error: "The senderId is not registered",
                 });
             }
             const trueReceiver = mock.contacts.filter(receiver => receiver.id === receiverId);
             if (trueReceiver.length === 0) {
-                res.status(404).json({
-                    status: 404,
+                return res.status(404).json({
+                    status: res.statusCode,
                     error: "The receiverId is not registered",
                 });
             }
             if (senderId === receiverId) {
-                res.status(400).json({
-                    status: 400,
+                return res.status(400).json({
+                    status: res.statusCode,
                     error: "The senderId and receiverId must not be the same",
                 });
             }
@@ -49,16 +49,16 @@ const messages = {
             );
             mock.messages.push(messagee);
             if (status === "sent") {
-                res.status(201).json({
-                    status: 201, successMessage: "Your message is sent", data: [messagee],
+                return res.status(201).json({
+                    status: res.statusCode, successMessage: "Your message is sent", data: [messagee],
                 });
             } else if (status === "draft") {
-                res.status(201).json({
-                    status: 201, successMessage: "Your message is drafted", data: [messagee],
+                return res.status(201).json({
+                    status: res.statusCode, successMessage: "Your message is drafted", data: [messagee],
                 });
             } else {
-                res.status(201).json({
-                    status: 201, successMessage: "Your message is read", data: [messagee],
+                return res.status(201).json({
+                    status: res.statusCode, successMessage: "Your message is read", data: [messagee],
                 });
             }
         }
@@ -66,13 +66,13 @@ const messages = {
 
     receivedEmails(req, res) {
         if (mock.messages.length === 0) {
-            res.status(404).json({
-                status: 404,
+            return res.status(404).json({
+                status: res.statusCode,
                 error: "No received emails found",
             });
         } else {
-            res.status(200).json({
-                status: 200,
+            return res.status(200).json({
+                status: res.statusCode,
                 successMessage: "Received emails",
                 data: mock.messages,
             });
@@ -82,13 +82,13 @@ const messages = {
     sentEmails(req, res) {
         const sentEmails = mock.messages.filter(email => email.status === "sent");
         if (sentEmails.length === 0) {
-            res.status(400).json({
-                status: 400,
+            return res.status(400).json({
+                status: res.statusCode,
                 successMessage: "No sent email found",
             });
         } else {
-            res.status(200).json({
-                status: 200,
+            return res.status(200).json({
+                status: res.statusCode,
                 successMessage: "Sent emails",
                 data: [sentEmails],
             });
@@ -98,13 +98,13 @@ const messages = {
     receivedReadEmails(req, res) {
         const readEmails = mock.messages.filter(email => email.status === "read");
         if (readEmails.length === 0) {
-            res.status(400).json({
-                status: 400,
+            return res.status(400).json({
+                status: res.statusCode,
                 successMessage: "no received read email found",
             });
         } else {
-            res.status(200).json({
-                status: 200,
+            return res.status(200).json({
+                status: res.statusCode,
                 successMessage: "Received read emails",
                 data: [readEmails],
             });
@@ -114,15 +114,31 @@ const messages = {
     receivedUnreadEmails(req, res) {
         const unreadEmails = mock.messages.filter(email => email.status === "unread");
         if (unreadEmails.length === 0) {
-            res.status(400).json({
-                status: 400,
+            return res.status(400).json({
+                status: res.statusCode,
                 successMessage: "No received unread email found",
             });
         } else {
-            res.status(200).json({
-                status: 200,
+            return res.status(200).json({
+                status: res.statusCode,
                 successMessage: "Received unread emails",
                 data: [unreadEmails],
+            });
+        }
+    },
+
+    draftEmails(req, res) {
+        const draftEmails = mock.messages.filter(email => email.status === "draft");
+        if (draftEmails.length === 0) {
+            return res.status(400).json({
+                status: res.statusCode,
+                successMessage: "No draft email found",
+            });
+        } else {
+            return res.status(200).json({
+                status: res.statusCode,
+                successMessage: "Draft emails",
+                data: [draftEmails],
             });
         }
     },
@@ -142,18 +158,18 @@ const messages = {
                 error: error.details[0].message,
             });
         } else {
-            // eslint-disable-next-line array-callback-return
-            mock.messages.map((email) => {
-                if (email.id === emailId) {
-                    res.status(200).json({
-                        status: 200,
-                        successMessage: "Email received",
-                        data: email,
+            const emailMessage = mock.messages.find(c => c.id === emailId);
+            for (let i = 0; i < mock.messages.length; i++) {
+                if (mock.messages[i].id === emailId) {
+                    return res.status(200).json({
+                        status: res.statusCode,
+                        successMessage: "Specific Email received",
+                        data: emailMessage,
                     });
                 }
-            });
-            res.status(404).json({
-                status: 404,
+            }
+            return res.status(404).json({
+                status: res.statusCode,
                 error: "Email is not found",
             });
         }
@@ -177,16 +193,16 @@ const messages = {
             for (let i = 0; i < mock.messages.length; i++) {
                 if (mock.messages[i].id === emailId) {
                     mock.messages.splice(i, emailId);
-                    res.status(200).json({
-                        status: 200,
-                        successMessage: "email deleted",
+                    return res.status(200).json({
+                        status: res.statusCode,
+                        successMessage: "Email is deleted",
                         data: emailMessage
                     });
                 }
             }
-            res.status(404).json({
-                status: 404,
-                error: "email not found",
+            return res.status(404).json({
+                status: res.statusCode,
+                error: "Email is not found",
             });
         }
     },

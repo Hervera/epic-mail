@@ -12,24 +12,19 @@ describe('User authentication Endpoints', () => {
         const user = {
             firstName: 'Herve',
             lastName: 'Nkuri',
-            email: 'herveralive@gmail.com',
+            email: 'herveralive7@gmail.com',
             password: 'secret',
             isAdmin: true,
         };
         chai.request(server)
             .post('/api/v1/auth/signup')
             .send(user)
+            .set("Accept", "Application/JSON")
             .end((err, res) => {
                 res.body.should.be.an('Object');
                 res.body.should.have.property('status').equal(201);
                 res.body.should.have.property('data');
                 res.body.data.should.be.an('Array');
-                res.body.data.should.all.have.property('token');
-                res.body.data.should.all.have.property('user');
-                res.body.data[0].user.should.have.property('firstName', user.firstName);
-                res.body.data[0].user.should.have.property('lastName', user.lastName);
-                res.body.data[0].user.should.have.property('email', user.email);
-                res.body.data[0].user.should.have.property('isadmin', user.isAdmin);
                 done();
             });
     });
@@ -46,14 +41,8 @@ describe('User authentication Endpoints', () => {
             .end((err, res) => {
                 res.body.should.be.an('Object');
                 res.body.should.have.property('status').equal(200);
-                res.body.should.have.property('data');
                 res.body.data.should.be.an('Array');
-                res.body.data.should.all.have.property('token');
-                res.body.data.should.all.have.property('user');
-                res.body.data[0].user.should.have.property('firstName');
-                res.body.data[0].user.should.have.property('lastName');
-                res.body.data[0].user.should.have.property('email');
-                res.body.data[0].user.should.have.property('isadmin');
+                res.body.should.have.property('data');
                 done();
             });
     });

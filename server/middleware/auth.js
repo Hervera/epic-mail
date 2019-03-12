@@ -2,7 +2,7 @@
 // Authorization: Bearer <access_token>
 // Verify Token
 const auth = {
-    async  verifyToken(req, res, next) {
+    verifyToken(req, res, next) {
         // Get auth header value
         const bearerHeader = req.headers.authorization;
         // Check if bearer is undefined 
