@@ -1,0 +1,39 @@
+@media all and (max-width: 1200px){
+	.first-name, .last-name{
+	    width: 100%;
+	}
+}
+
+
+@media all and (max-width: 780px){
+	.my-form {
+    	width: 90%;
+    }
+}
+
+@media all and (max-width: 480px){
+
+	.my-form {
+    	width: 90%;
+    }
+
+    .tab-group {
+	    width: 80%;
+	}
+	.tab-group li a {
+	    padding: 10px;
+	    font-size: 16px;
+	}
+}
+
+@media all and (max-width: 250px){
+	.tab-group li a {
+	    padding: 10px;
+	    font-size: 16px;
+	}
+
+	ul li {
+	    width: 100%;
+	}
+}
+

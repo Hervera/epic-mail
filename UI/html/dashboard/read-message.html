@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Read mail</title>
+  <link rel="stylesheet" href="css/dashboard-style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <style>
+  </style>
+</head>
+<body>
+
+<header role="banner">
+  <h1>EPIC Mail App</h1>
+  <button id="menuBars" class="" onclick="bars_open()"><span class="fa fa-bars"></span></button>
+  <ul class="utilities">
+    <li class="users"><a href="#"><i class="fa fa-user"></i>Username</a></li>
+    <li class="logout warn"><a href="../sign-in.html"><i class="fa fa-sign-out"></i>Log Out</a></li>
+  </ul>
+</header>
+
+<div id="main-content">
+  <!-- BEGIN Main Content -->
+  <div class="mail-page">
+    <div class="mail-nav disp-block" id="aside-nav">
+      <ul>
+        <li><a href="groups.html"><i class="fa fa-group"></i>Groups</a></li>
+        <li><a href="compose.html"><i class="fa fa-edit"></i> Compose</a></li>
+        <li class="active"><a href="inbox.html"><i class="fa fa-envelope"></i> Inbox (3)</a></li>
+        <li><a href="sent.html"><i class="fa fa-rocket"></i> Sent</a></li>
+        <li><a href="draft.html"><i class="fa fa-file-text-o"></i> Drafts</a></li>
+      </ul>
+    </div>
+
+
+    <div class="mail-content" id="main">
+      <div class="mail-msg-subject">
+      <a href="#"></a>
+      Subject: Lorem ipsum dolor sit amet
+      </div>
+      <ul class="mail-messages">
+        <li>
+          <div class="mail-msg-header">
+            <img src="images/default-avatar.jpg" alt="avatar">
+            <div class="msg-sender-recver">
+              <strong>Sender names</strong><br>
+              <i>sender@gmail.com</i>
+            </div>
+
+            <div class="msg-collapse">
+              <a class="show-tooltip collapsible" title="Collapse/Uncollapse"><i
+                  class="fa fa-chevron-up" id="chevron"></i></a>
+            </div>
+
+            <div class="msg-options">
+              <span>
+                <a href="#" class="show-tooltip" title="Reply"><i
+                    class="fa fa-reply blue"></i></a>
+                <a href="#" class="show-tooltip" title="Forward"><i
+                    class="fa fa-long-arrow-right blue"></i></a>
+                <a href="#" class="show-tooltip" title="Delete"><i
+                    class="fa fa-trash-o red"></i></a>
+              </span>
+              <br>
+              <i>Oct 17, 02:13 AM</i>
+            </div>
+          </div>
+
+          <div class="mail-msg-container" id="mail-msg-container">
+            <div class="mail-msg-content">
+              <p>Hello Receiver,</p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat.</p>
+              <p>Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient
+                montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula ut id elit. Vivamus sagittis lacus
+                vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula,
+                eget lacinia odio sem nec elit. Donec sed odio dui.</p>
+              <p>Best regards<br>Sarah</p>
+            </div>
+
+          </div>
+        </li>
+        <li class="msg-reply">
+          <form class="" action="#">
+            <p class="controls">
+              <textarea class="" rows="5" placeholder="Replay to this mail"></textarea>
+              <input type="hidden" name="message_id" value="1">
+            </p>
+            <p>
+              <button class="button btn-blue"><i class="fa fa-reply"></i> Reply</button>
+            </p>
+          </form>
+        </li>
+      </ul>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/dashboard-script.js"></script>
+</body>
+</html>
