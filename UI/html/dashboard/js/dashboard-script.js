@@ -15,7 +15,7 @@ if(window.innerWidth < 600){
   x.classList.add("disp-none");
   x.classList.remove("disp-block");
   document.getElementById("main").style.marginLeft = "15px";
-}else{
+} else {
   x.classList.remove("disp-none");
   x.classList.add("disp-block");
   document.getElementById("main").style.marginLeft = "215px";

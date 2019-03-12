@@ -69,7 +69,7 @@ h1, #menuBars {
 }
 
 .widget.part-right{
-  padding: 3%;
+  /*padding: 3%;*/
 }
 
 /* header */
@@ -107,6 +107,7 @@ nav[role=navigation] li a:before {
   -moz-border-radius: .3rem;
   -ms-border-radius: .3rem;
   border-radius: .3rem;
+  min-height: 400px;
 }
 
 .widget > h2, .widget > ul {
@@ -167,8 +168,12 @@ form input[type=checkbox], form input[type=radio] {
 }
 form label, form legend {
   display: block;
-  margin: 1em 0 .5em;
+  /* margin: 0 0 1em; */
 }
+.in-group{
+  margin-bottom: 30px;
+}
+
 form input[type=submit] {
   background: turquoise;
   border: none;
@@ -270,7 +275,7 @@ label.error {
 table {
   border-collapse: collapse;
   width: 96%;
-  margin: 2%;
+  margin: 2em 1em;
 }
 
 th {
@@ -315,7 +320,7 @@ td {
 
 
 .delete-bt{
-  background: #e6301f;
+  background: #e44d15;
 }
 
 .mdl-footer{
@@ -401,10 +406,6 @@ border-radius: .3rem;
 }
 
 /* Mail ------------------------------------------ */
-.mail-page {
-
-}
-
 .mail-content {
     margin-left: 215px;
     margin-right: 15px;
@@ -499,8 +500,6 @@ border-radius: .3rem;
 .mail-toolbar > .mail-pagination [class*="fa-"] {
     font-size: 14px;
 }
-
-
 
 .mail-list {
     background-color: #fff;
