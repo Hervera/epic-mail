@@ -99,7 +99,6 @@ const messages = [
     },
 ];
 
-
 export default {
     users, messages, contacts,
 };
