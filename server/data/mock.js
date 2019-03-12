@@ -78,6 +78,16 @@ const messages = [
         status: "read",
     },
     {
+        id: 2,
+        createdOn: "February 7th 2019, 03:00:00 am",
+        subject: "Hi",
+        message: "How are you doing?",
+        senderId: 2,
+        receiverId: 1,
+        parentMessageId: 2,
+        status: "unread",
+    },
+    {
         id: 3,
         createdOn: "March 6th 2019, 09:00:00 am",
         subject: "Hi brother",
