@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/Hervera/epic-mail.svg?branch=develop)](https://travis-ci.org/Hervera/epic-mail)
 
+[![Coverage Status](https://coveralls.io/repos/github/Hervera/epic-mail/badge.svg)](https://coveralls.io/github/Hervera/epic-mail)
+
 # Description
 
 <p>EPIC mail is a web app that facilitates people to exchange messages over the internet. The app has authentication and functionalites where each user has to register and then login. In order have access for messaging pages. A user can be able to make CRUD operations for messaging.</p>

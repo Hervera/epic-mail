@@ -2,7 +2,7 @@
   "name": "epicmail",
   "version": "1.0.0",
   "engines": {
-    "node": "8.9.4"
+    "node": "10.14.1"
   },
   "description": "EPIC Mail",
   "main": "index.js",
