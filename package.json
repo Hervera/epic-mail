@@ -9,7 +9,8 @@
   "scripts": {
     "test": "mocha --require babel-polyfill --require @babel/register ./server/tests --timeout 1200 --exit",
     "start": "babel-node server/app.js",
-    "cover": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/*"
+    "cover": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/*",
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.3.4",
     "@babel/register": "^7.0.0",
+    "babel-plugin-istanbul": "^5.1.1",
     "babel-polyfill": "^6.26.0",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
@@ -51,6 +53,7 @@
     "install": "^0.12.2",
     "mocha": "^6.0.2",
     "mocha-lcov-reporter": "^1.3.0",
-    "nodemon": "^1.18.3"
+    "nodemon": "^1.18.3",
+    "nyc": "^13.3.0"
   }
 }
