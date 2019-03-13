@@ -10,8 +10,10 @@
     "test": "mocha --require babel-polyfill --require @babel/register ./server/tests --timeout 1200 --exit",
     "start": "babel-node server/app.js",
     "cover": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/*",
-    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
+    "build": "babel server --out-dir dist"
   },
+  "heroku-run-build-script": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Hervera/epic-mail.git"
