@@ -37,7 +37,7 @@ Starting application run the following npm scripts
 When you need to test the application and view test coverate run:
 * `npm test` for running the tests, and getting coverage summary.
 
-# API
+# APIs
 
 * POST `/api/v1/auth/signup` Create a user account.
 * POST `/api/v1/auth/login` Login a user.
