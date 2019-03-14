@@ -36,6 +36,17 @@
                 "produces": [
                     "application/json"
                 ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "description": "Create a user account",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -52,6 +63,17 @@
                 "summary": "Login a user",
                 "produces": [
                     "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "description": "Login a user",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
                 ],
                 "responses": {
                     "200": {
