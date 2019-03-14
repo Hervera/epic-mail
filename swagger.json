@@ -1,0 +1,182 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "EPIC MAIL - Web Application",
+        "description": "EPIC mail is a web app that facilitates people to exchange messages over the internet. The app has authentication and functionalites where each user has to register and then login. In order have access for messaging pages. A user can be able to make CRUD operations for messaging."
+    },
+    "host": "localhost:3500",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Authentication",
+            "description": "API for user authentication"
+        },
+        {
+            "name": "Messaging",
+            "description": "API for email messages"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/api/v1/auth/signup": {
+            "post": {
+                "tags": [
+                    "Auntentication"
+                ],
+                "summary": "Create a user account",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/login": {
+            "post": {
+                "tags": [
+                    "Auntentication"
+                ],
+                "summary": "Login a user",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/v1/messages": {
+            "parameters": [
+                {
+                    "name": "message-id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of message that we want to find",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Messaging"
+                ],
+                "summary": "Get message with given ID",
+                "responses": {
+                    "200": {
+                        "description": "message is found",
+                        "schema": {
+                            "$ref": "#/definitions/message"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Update message with give ID",
+                "tags": [
+                    "Messaging"
+                ],
+                "parameters": [
+                    {
+                        "name": "message",
+                        "in": "body",
+                        "description": "Message with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/Message"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Message is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Message"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/messages/{message-id}": {
+            "parameters": [
+                {
+                    "name": "message-id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of message that we want to find",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Messaging"
+                ],
+                "summary": "Get message with given ID",
+                "responses": {
+                    "200": {
+                        "description": "Message is found",
+                        "schema": {
+                            "$ref": "#/definitions/message"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete message with given ID",
+                "tags": [
+                    "Messaging"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Message is deleted",
+                        "schema": {
+                            "$ref": "#/definitions/Message"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "User": {
+            "required": [
+                "firstName",
+                "lastName",
+                "email",
+                "password",
+                "isAdmin"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                }
+            }
+        },
+        "Messaging": {
+            "type": "array",
+            "$ref": "#/definitions/User"
+        }
+    }
+}

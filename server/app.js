@@ -1,6 +1,8 @@
 import express from 'express';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
+import swaggerUI from 'swagger-ui-express';
+import swaggerDocument from '../swagger.json';
 import userRoutes from './routes/user';
 import messageRoutes from './routes/messages';
 
@@ -11,6 +13,8 @@ app.use(morgan('dev'));
 // Parse incoming requests data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use('/', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // Routes which should handle requests
 app.use('/api/v1/auth', userRoutes);
