@@ -5,7 +5,7 @@
         "title": "EPIC MAIL - Web Application",
         "description": "EPIC mail is a web app that facilitates people to exchange messages over the internet. The app has authentication and functionalites where each user has to register and then login. In order have access for messaging pages. A user can be able to make CRUD operations for messaging."
     },
-    "host": "localhost:3500",
+    "host": "hervera-epicmail.herokuapp.com",
     "basePath": "/api/v1",
     "tags": [
         {
@@ -18,8 +18,16 @@
         }
     ],
     "schemes": [
-        "http"
+        "http",
+        "https"
     ],
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    },
     "consumes": [
         "application/json"
     ],
@@ -84,6 +92,11 @@
         },
         "/messages": {
             "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "tags": [
                     "Message"
                 ],
@@ -107,6 +120,11 @@
                 }
             },
             "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "tags": [
                     "Message"
                 ],
@@ -121,6 +139,11 @@
         },
         "/messages/unread": {
             "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "tags": [
                     "Message"
                 ],
@@ -135,6 +158,11 @@
         },
         "/messages/read": {
             "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "summary": "Fetch all read received emails",
                 "tags": [
                     "Message"
@@ -149,6 +177,11 @@
         },
         "/messages/sent": {
             "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "summary": "Fetch all sent emails",
                 "tags": [
                     "Message"
@@ -163,6 +196,11 @@
         },
         "/messages/draft": {
             "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "summary": "Fetch all draft emails",
                 "tags": [
                     "Message"
@@ -186,6 +224,11 @@
                 }
             ],
             "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "tags": [
                     "Message"
                 ],
@@ -198,6 +241,11 @@
                 }
             },
             "delete": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "summary": "Delete a specific email record",
                 "tags": [
                     "Message"
