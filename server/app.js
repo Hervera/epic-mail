@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Routes which should handle requests
 app.use('/api/v1/auth', userRoutes);
 app.use('/api/v1/messages', messageRoutes);
+app.use('/', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.use((req, res, next) => {
     const error = new Error('Not found');
@@ -34,8 +35,6 @@ app.use((error, req, res, next) => {
         error: error.message,
     });
 });
-
-app.use('/', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.listen(port, () => {
     console.log(`Server running at port ${port}...`);
