@@ -50,3 +50,10 @@ When you need to test the application and view test coverate run:
 * GET `/api/v1/messages/draft` Fetch all draft emails. 
 * GET `/api/v1/messages/<message-id>` Fetch a specific email record.
 * DELETE `/api/v1/messages/<message-id>` Delete a specific email record.
+
+# Heroku & Swagger API Documentation
+
+Access link : [Visit the link](https://hervera-epicmail.herokuapp.com/). You can test the above API using this Heroku URL `https://hervera-epicmail.herokuapp.com/` with the above mentioned Endpoints.
+
+# Github-pages
+GitHub pages (gh-pages) of this project is accessed using this link [EPICMail UI](https://hervera.github.io/epic-mail/).
