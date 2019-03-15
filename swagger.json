@@ -100,13 +100,15 @@
                 "tags": [
                     "Message"
                 ],
-                "summary": "Create or send an email",
                 "parameters": [
                     {
-                        "name": "message",
                         "in": "body",
-                        "description": "message that we want to create",
-                        "schema": {}
+                        "name": "body",
+                        "required": true,
+                        "description": "Create or send an email",
+                        "schema": {
+                            "$ref": "#/definitions/Message"
+                        }
                     }
                 ],
                 "produces": [
