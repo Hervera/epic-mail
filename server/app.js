@@ -1,20 +1,20 @@
 import express from 'express';
 import morgan from 'morgan';
-import bodyParser from 'body-parser';
 import swaggerUI from 'swagger-ui-express';
-import swaggerDocument from '../swagger.json';
+import bodyParser from 'body-parser';
 import userRoutes from './routes/user';
 import messageRoutes from './routes/messages';
+import swaggerDocument from '../swagger.json';
 
 const app = express();
+
+const port = process.env.PORT || 3500;
 
 app.use(morgan('dev'));
 
 // Parse incoming requests data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-app.use('/', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // Routes which should handle requests
 app.use('/api/v1/auth', userRoutes);
@@ -35,7 +35,8 @@ app.use((error, req, res, next) => {
     });
 });
 
-const port = process.env.PORT || 3500;
+app.use('/', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+
 app.listen(port, () => {
     console.log(`Server running at port ${port}...`);
 });
