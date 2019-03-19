@@ -6,7 +6,7 @@ import userRoutes from './routes/user';
 import messageRoutes from './routes/messages';
 import groupRoutes from './routes/groups';
 import swaggerDocument from '../swagger.json';
-import {createTables} from './data/connection';
+import {createTables} from './data/create_tables';
 
 const app = express();
 
