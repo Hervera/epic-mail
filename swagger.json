@@ -5,7 +5,7 @@
         "title": "EPIC MAIL - Web Application",
         "description": "EPIC mail is a web app that facilitates people to exchange messages over the internet. The app has authentication and functionalites where each user has to register and then login. In order have access for messaging pages. A user can be able to make CRUD operations for messaging."
     },
-    "host": "hervera-epicmail.herokuapp.com",
+    "host": "localhost:3500",
     "basePath": "/api/v1",
     "tags": [
         {
@@ -18,8 +18,8 @@
         }
     ],
     "schemes": [
-        "https",
-        "http"
+        "http",
+        "https"
     ],
     "securityDefinitions": {
         "Bearer": {
