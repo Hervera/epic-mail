@@ -5,12 +5,15 @@ import bodyParser from 'body-parser';
 import userRoutes from './routes/user';
 import messageRoutes from './routes/messages';
 import swaggerDocument from '../swagger.json';
+import { createTables } from './data/create_tables';
 
 const app = express();
 
 const port = process.env.PORT || 3500;
 
 app.use(morgan('dev'));
+
+createTables();
 
 // Parse incoming requests data
 app.use(bodyParser.json());
