@@ -46,6 +46,13 @@ const createTables = () => {
       role VARCHAR(255) NOT NULL,
       createdOn TIMESTAMP,
       updatedOn TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS
+    group_user(
+        id SERIAL PRIMARY KEY,
+        group_id INTEGER REFERENCES groups(id),
+        user_id INTEGER REFERENCES users(id)
     )`;
 
     pool.query(queryText)
@@ -63,7 +70,7 @@ const createTables = () => {
  * Drop Tables
  */
 const dropTables = () => {
-    const queryText = 'DROP TABLE IF EXISTS users, message, groups';
+    const queryText = 'DROP TABLE IF EXISTS users, messages, groups';
     pool.query(queryText)
         .then((res) => {
             console.log(res);

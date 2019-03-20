@@ -34,6 +34,13 @@ const emailParams = Joi.object().keys({
         .required(),
 });
 
+const groupSchema = Joi.object().keys({
+    name: Joi.string().min(2).max(50)
+        .required(),
+    role: Joi.string().min(2).max(50)
+        .required(),
+});
+
 export default {
-    registerSchema, loginSchema, messageSchema, emailParams
+    registerSchema, loginSchema, messageSchema, emailParams, groupSchema
 };
