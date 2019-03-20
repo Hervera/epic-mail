@@ -99,6 +99,24 @@ const messages = [
     },
 ];
 
+
+const groups = [
+    {
+        id: 1,
+        name: "Group 1",
+        role: "user",
+        createdOn: "March 11th 2019, 04:00:00 am",
+        updatedOn: "March 15th 2019, 04:00:00 am",
+    },
+    {
+        id: 2,
+        name: "Groups 2",
+        role: "admin",
+        createdOn: "March 13th 2019, 03:00:00 am",
+        updatedOn: "March 18th 2019, 03:00:00 am",
+    },
+];
+
 export default {
-    users, messages, contacts,
+    users, messages, contacts, groups,
 };
