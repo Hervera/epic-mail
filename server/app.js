@@ -1,29 +1,46 @@
 import express from 'express';
+import dotenv from 'dotenv';
 import morgan from 'morgan';
 import swaggerUI from 'swagger-ui-express';
+
 import bodyParser from 'body-parser';
 import userRoutes from './routes/user';
 import messageRoutes from './routes/messages';
 import groupRoutes from './routes/groups';
 import swaggerDocument from '../swagger.json';
-import {createTables} from './data/create_tables';
+// import {createTables, dropTables} from './data/create_tables';
+
+dotenv.config();
 
 const app = express();
 
-const port = process.env.PORT || 3500;
+// dropTables();
+// createTables();
+
+// CORS
+app.all('/*', (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.header(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+    );
+    next();
+});
+
+const port = process.env.PORT || 8000;
 
 app.use(morgan('dev'));
 
-createTables();
 
 // Parse incoming requests data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Routes which should handle requests
-app.use('/api/v1/auth', userRoutes);
-app.use('/api/v1/messages', messageRoutes);
-app.use('/api/v1/groups', groupRoutes);
+app.use('/api/v2/auth', userRoutes);
+app.use('/api/v2/messages', messageRoutes);
+app.use('/api/v2/groups', groupRoutes);
 app.use('/', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.use((req, res, next) => {
@@ -44,6 +61,5 @@ app.use((error, req, res, next) => {
 app.listen(port, () => {
     console.log(`Server running at port ${port}...`);
 });
-
 
 export default app;

@@ -1,49 +1,42 @@
 import Joi from "joi";
 import moment from "moment";
-import Group from "../models/Group";
+import uuidv4 from 'uuid/v4';
+import db from '../data/create_tables';
 import mock from "../data/mock";
 import validate from "../helpers/validation";
 
 const groups = {
    
-    index(req, res) {
-        if (mock.groups.length === 0) {
-            return res.status(404).json({
-                status: res.statusCode,
-                error: "No group found",
-            });
-        } else {
-            return res.status(200).json({
-                status: res.statusCode,
-                successGroup: "all groups created",
-                data: mock.groups,
-            });
+    async index(req, res) {
+        const findAllQuery = 'SELECT * FROM groups';
+        try {
+            const { rows, rowCount } = await db.query(findAllQuery);
+            return res.status(200).send({ rows, rowCount });
+        } catch (error) {
+            return res.status(400).send(error);
         }
     },
 
-    store(req, res) {
-        const {
-            name, role,
-        } = req.body;
-        const { error } = Joi.validate(req.body, validate.groupSchema, { abortEarly: false });
+    async store(req, res) {
 
-        if (error != null) {
-            const errors = [];
-            for (let index = 0; index < error.details.length; index++) {
-                errors.push(error.details[index].group.split('"').join(''));
-            }
-            return res.status(400).send({
-                status: res.statusCode,
-                error: errors,
-            });
-        } else {
-            const id = mock.groups.length + 1;
-            const createdOn = moment().format('MMMM Do YYYY, h:mm:ss a');
-            const updatedOn = moment().format('MMMM Do YYYY, h:mm:ss a');
-            const group = new Group(
-                id, name, role, createdOn, updatedOn
-            );
-            mock.groups.push(group);
+        const text = `INSERT INTO
+        groups(id, name, role, createdOn, updatedOn)
+        VALUES($1, $2, $3, $4, $5)
+        returning *`;
+
+        const values = [
+            uuidv4(),
+            req.body.name,
+            req.body.role,
+            moment(new Date()),
+            moment(new Date())
+        ];
+
+        try {
+            const { rows } = await db.query(text, values);
+            return res.status(201).send(rows[0]);
+        } catch (error) {
+            return res.status(400).send(error);
         }
     },
 
