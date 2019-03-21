@@ -2,13 +2,12 @@ import express from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import swaggerUI from 'swagger-ui-express';
-
 import bodyParser from 'body-parser';
 import userRoutes from './routes/user';
 import messageRoutes from './routes/messages';
 import groupRoutes from './routes/groups';
 import swaggerDocument from '../swagger.json';
-// import {createTables, dropTables} from './data/create_tables';
+// import {createTables} from './data/create_tables';
 
 dotenv.config();
 
