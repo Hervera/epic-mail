@@ -14,13 +14,13 @@ pool.on('connect', () => {
 /**
  * Create Tables
  */
-const createTables = () => {
+const createTables = () => new Promise(async (resolve, reject) => {
     const queryText = `CREATE TABLE IF NOT EXISTS
     users(
       id SERIAL NOT NULL PRIMARY KEY,
       firstName VARCHAR(255) NOT NULL,
       lastName VARCHAR(255) NOT NULL,
-      email VARCHAR(255) NOT NULL,
+      email VARCHAR(255) UNIQUE NOT NULL,
       password VARCHAR(255) NOT NULL,
       isAdmin BOOLEAN NOT NULL,
       confirmed BOOLEAN NOT NULL,
@@ -55,32 +55,31 @@ const createTables = () => {
         user_id INTEGER REFERENCES users(id)
     )`;
 
-    pool.query(queryText)
-        .then((res) => {
-            console.log(res);
-            pool.end();
-        })
-        .catch((err) => {
-            console.log(err);
-            pool.end();
-        });
-};
+    try {
+        await pool.query(queryText);
+        resolve();
+    } catch (error) {
+        reject(error);
+    }
+});
 
 /**
  * Drop Tables
  */
-const dropTables = () => {
-    const queryText = 'DROP TABLE IF EXISTS users, messages, groups';
-    pool.query(queryText)
-        .then((res) => {
-            console.log(res);
-            pool.end();
-        })
-        .catch((err) => {
-            console.log(err);
-            pool.end();
-        });
-};
+const dropTables = () => new Promise(async (resolve, reject) => {
+    const queryText = `DROP TABLE IF EXISTS users CASCADE;
+    DROP TABLE IF EXISTS messages CASCADE;
+    DROP TABLE IF EXISTS groups CASCADE;
+    DROP TABLE IF EXISTS group_user CASCADE;
+    `;
+
+    try {
+        await pool.query(queryText);
+        resolve();
+    } catch (error) {
+        reject(error);
+    }
+});
 
 export {
     createTables, dropTables

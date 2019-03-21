@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --require babel-polyfill --require @babel/register ./server/tests --timeout 1200 --exit",
-    "start": "babel-node server/app.js",
+    "start": "nodemon --exec babel-node server/app.js",
     "cover": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/*",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "build": "babel server --out-dir dist"

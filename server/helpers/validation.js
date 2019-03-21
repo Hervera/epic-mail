@@ -19,8 +19,6 @@ const messageSchema = Joi.object().keys({
     message: Joi.string().trim().min(3)
         .max(5000) 
         .required(),
-    senderId: Joi.number().integer()
-        .required(),
     receiverId: Joi.number().integer()
         .required(),
     parentMessageId: Joi.number().integer()
@@ -41,6 +39,11 @@ const groupSchema = Joi.object().keys({
         .required(),
 });
 
+const groupParams = Joi.object().keys({
+    groupId: Joi.number().integer()
+        .required(),
+});
+
 export default {
-    registerSchema, loginSchema, messageSchema, emailParams, groupSchema
+    registerSchema, loginSchema, messageSchema, emailParams, groupSchema, groupParams
 };
