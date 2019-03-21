@@ -2,7 +2,6 @@ import Joi from 'joi';
 import moment from 'moment';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-// import User from "../models/User";
 import db from '../data/connection';
 import validate from "../helpers/validation";
 import Helper from '../helpers/auth';
@@ -25,11 +24,6 @@ const users = {
                 error: errors,
             });
         } else {
-            // const user = new User(
-            // eslint-disable-next-line max-len
-            // firstName, lastName, email, password, confirmed, isAdmin, moment().format('MMMM Do YYYY, h:mm:ss a')
-            // );
-      
             const confirmed = 0;
             const isAdmin = "false";
             const hashPassword = bcrypt.hashSync(password, 10);
