@@ -12,21 +12,9 @@ import { createTables } from './data/create_tables';
 
 dotenv.config();
 
-
 const app = express();
 
 createTables();
-
-// CORS
-app.all('/*', (req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.header(
-        'Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-    );
-    next();
-});
 
 const port = process.env.PORT || 8000;
 
