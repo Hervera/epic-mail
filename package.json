@@ -7,7 +7,7 @@
   "description": "EPIC Mail",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require @babel/register ./server/tests --exit",
+    "test": "nyc --reporter=html --reporter=text mocha --require @babel/register ./server/tests --timeout 1200 --exit",
     "start": "nodemon --exec babel-node server/app.js",
     "cover": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/*",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
