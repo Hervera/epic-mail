@@ -11,6 +11,7 @@
     "start": "nodemon --exec babel-node server/app.js",
     "cover": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/*",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
+    "create": "babel-node server/data/create_tables.js createTables",
     "build": "babel server --out-dir dist"
   },
   "heroku-run-build-script": true,
