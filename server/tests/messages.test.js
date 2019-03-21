@@ -5,7 +5,7 @@ import server from "../app";
 import {
     sentMessage, readMessage, draftMessage, falseReadMessage, unregisteredReceiver,
     unregisteredSender, emptyMessage,
-} from "./mock";
+} from "./mock.test";
 
 chai.should();
 chai.use(chaiHTTP);
