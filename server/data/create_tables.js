@@ -44,15 +44,16 @@ const createTables = () => new Promise(async (resolve, reject) => {
       id SERIAL NOT NULL PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
       role VARCHAR(255) NOT NULL,
+      owner INTEGER REFERENCES users(id),
       createdOn TIMESTAMP,
       updatedOn TIMESTAMP
     );
 
     CREATE TABLE IF NOT EXISTS
-    group_user(
+    group_members(
         id SERIAL PRIMARY KEY,
-        group_id INTEGER REFERENCES groups(id),
-        user_id INTEGER REFERENCES users(id)
+        groupId INTEGER REFERENCES groups(id),
+        memberId INTEGER REFERENCES users(id)
     )`;
 
     try {
@@ -70,7 +71,7 @@ const dropTables = () => new Promise(async (resolve, reject) => {
     const queryText = `DROP TABLE IF EXISTS users CASCADE;
     DROP TABLE IF EXISTS messages CASCADE;
     DROP TABLE IF EXISTS groups CASCADE;
-    DROP TABLE IF EXISTS group_user CASCADE;
+    DROP TABLE IF EXISTS group_members CASCADE;
     `;
 
     try {

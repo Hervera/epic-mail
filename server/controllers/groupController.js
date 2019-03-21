@@ -5,34 +5,66 @@ import validate from "../helpers/validation";
 
 const groups = {
    
-    async index(req, res) {
-        const findAllQuery = 'SELECT * FROM groups';
-        try {
-            const { rows, rowCount } = await db.query(findAllQuery);
-            return res.status(200).send({ rows, rowCount });
-        } catch (error) {
-            return res.status(400).send(error);
-        }
-    },
-
     async store(req, res) {
+        const { name, role} = req.body;
 
-        const text = `INSERT INTO groups(name, role, createdOn, updatedOn) VALUES($1, $2, $3, $4) returning *`;
+        const { error } = Joi.validate(req.body, validate.groupSchema, { abortEarly: false });
 
-        const values = [
-            req.body.name,
-            req.body.role,
-            moment(new Date()),
-            moment(new Date())
-        ];
+        if (error != null) {
+            const errors = [];
+            for (let index = 0; index < error.details.length; index++) {
+                errors.push(error.details[index].message.split('"').join(''));
+            }
+            return res.status(400).send({
+                status: res.statusCode,
+                error: errors,
+            });
+        } else {
 
-        try {
-            const { rows } = await db.query(text, values);
-            return res.status(201).send(rows[0]);
-        } catch (error) {
-            return res.status(400).send(error);
+            const group = `INSERT INTO groups(name, role, owner, createdOn, updatedOn) VALUES($1, $2, $3, $4, $5) returning *`;
+
+            const authUserId = req.user.id;
+            const values = [
+                name,
+                role,
+                authUserId,
+                moment(new Date()),
+                moment(new Date())
+            ];
+
+            try {
+                const { rows } = await db.query(group, values);
+                res.status(201).json({
+                    status: 201,
+                    data: rows,
+                });
+            } catch (error) {
+                res.status(400).json({
+                    status: res.statusCode,
+                    error: `${error}`
+                });
+            }
         }
     },
+
+    async index(req, res) {
+        const findAllQuery = 'SELECT * FROM groups where owner = $1';
+        try {
+            const { rows, rowCount } = await db.query(findAllQuery, [req.user.id]);
+            // return res.status(200).send({ rows, rowCount });
+            return res.status(200).json({
+                status: res.statusCode,
+                total: rowCount,
+                data: rows,
+            });
+        } catch (error) {
+            res.status(400).json({
+                status: res.statusCode,
+                error: `${error}`
+            });
+        }
+    },
+
 
     async show(req, res) {
         const groupId = parseInt(req.params.id, 10);
@@ -49,10 +81,10 @@ const groups = {
                 error: error.details[0].message,
             });
         } else {
-            const text = 'SELECT * FROM groups WHERE id = $1';
+            const text = 'SELECT * FROM groups WHERE id = $1 AND owner = $2';
 
             try {
-                const { rows } = await db.query(text, [req.params.id]);
+                const { rows } = await db.query(text, [req.params.id, req.user.id]);
                 if (!rows[0]) {
                     return res.status(404).send({ 
                         status: res.statusCode,
@@ -65,7 +97,10 @@ const groups = {
                     data: { rows }
                 });
             } catch (error) {
-                return res.status(400).send(error);
+                res.status(400).json({
+                    status: res.statusCode,
+                    error: `${error}`
+                });
             }
         }
     },
@@ -85,10 +120,10 @@ const groups = {
             });
         } else {
             // Update Group
-            const findOneQuery = 'SELECT * FROM groups WHERE id=$1';
+            const findOneQuery = 'SELECT * FROM groups WHERE id=$1 AND owner = $2';
             const updateOneQuery = `UPDATE groups SET name=$1, role=$2, updatedon=$3 WHERE id=$4 returning *`;
             try {
-                const { rows } = await db.query(findOneQuery, [req.params.id]);
+                const { rows } = await db.query(findOneQuery, [req.params.id, req.user.id]);
                 if (!rows[0]) {
                     return res.status(404).send({ 
                         status: res.statusCode,
@@ -107,10 +142,10 @@ const groups = {
                     data: response.rows[0]
                 });
             } catch (err) {
-                return res.status(400).send( 
-                    // eslint-disable-next-line no-undef
-                    `error ${err}`
-                );
+                res.status(400).json({
+                    status: res.statusCode,
+                    error: `${error}`
+                });
             }
         }
     },
@@ -129,22 +164,25 @@ const groups = {
                 error: error.details[0].message,
             });
         } else {
-            const deleteQuery = 'DELETE FROM groups WHERE id=$1 returning *';
+            const deleteQuery = 'DELETE FROM groups WHERE id=$1 AND owner = $2 returning *';
             try {
-                const { rows } = await db.query(deleteQuery, [req.params.id]);
+                const { rows } = await db.query(deleteQuery, [req.params.id, req.user.id]);
                 if (!rows[0]) {
                     return res.status(404).json({
                         status: res.statusCode,
                         error: "Group is not found",
                     });
                 }
-                return res.status(204).json({
+                return res.status(200).json({
                     status: res.statusCode,
                     successGroup: "Group is deleted",
                     data: { rows }
                 });
             } catch (error) {
-                return res.status(400).send(error);
+                res.status(400).json({
+                    status: res.statusCode,
+                    error: `${error}`
+                });
             }   
         }
     },
