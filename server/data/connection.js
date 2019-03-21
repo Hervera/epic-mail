@@ -1,10 +1,10 @@
-import { Pool } from 'pg';
+import pg from 'pg';
 
-const pool = new Pool({
+const pool = new pg.Pool({
     connectionString: process.env.DATABASE_URL
 });
 
-console.log(process.env.DATABASE_URL);
+// console.log(process.env.DATABASE_URL);
 
 export default {
     query(text, params) {

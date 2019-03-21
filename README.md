@@ -1,6 +1,6 @@
 # EPIC Mail - Andela Developer Challenge
 
-[![Build Status](https://travis-ci.org/Hervera/epic-mail.svg?branch=develop)](https://travis-ci.org/Hervera/epic-mail)  [![Coverage Status](https://coveralls.io/repos/github/Hervera/epic-mail/badge.svg)](https://coveralls.io/github/Hervera/epic-mail) [![Maintainability](https://api.codeclimate.com/v1/badges/8f441dac47faa702f4b2/maintainability)](https://codeclimate.com/github/Hervera/epic-mail/maintainability)
+[![Build Status](https://travis-ci.org/Hervera/epic-mail.svg?branch=develop)](https://travis-ci.org/Hervera/epic-mail)  [![Coverage Status](https://coveralls.io/repos/github/Hervera/epic-mail/badge.svg)](https://coveralls.io/github/Hervera/epic-mail) [![Maintainability](https://api.codeclimate.com/v2/badges/8f441dac47faa702f4b2/maintainability)](https://codeclimate.com/github/Hervera/epic-mail/maintainability)
 
 # Description
 
@@ -39,17 +39,17 @@ When you need to test the application and view test coverate run:
 
 # APIs
 
-* POST `/api/v1/auth/signup` Create a user account.
-* POST `/api/v1/auth/login` Login a user.
+* POST `/api/v2/auth/signup` Create a user account.
+* POST `/api/v2/auth/login` Login a user.
 
-* POST `/api/v1/messages` Create or send an email.
-* GET `/api/v1/messages` Fetch all received emails. 
-* GET `/api/v1/messages/unread` Fetch all unread received emails. 
-* GET `/api/v1/messages/read` Fetch all read received emails. 
-* GET `/api/v1/messages/sent` Fetch all sent emails. 
-* GET `/api/v1/messages/draft` Fetch all draft emails. 
-* GET `/api/v1/messages/<message-id>` Fetch a specific email record.
-* DELETE `/api/v1/messages/<message-id>` Delete a specific email record.
+* POST `/api/v2/messages` Create or send an email.
+* GET `/api/v2/messages` Fetch all received emails. 
+* GET `/api/v2/messages/unread` Fetch all unread received emails. 
+* GET `/api/v2/messages/read` Fetch all read received emails. 
+* GET `/api/v2/messages/sent` Fetch all sent emails. 
+* GET `/api/v2/messages/draft` Fetch all draft emails. 
+* GET `/api/v2/messages/<message-id>` Fetch a specific email record.
+* DELETE `/api/v2/messages/<message-id>` Delete a specific email record.
 
 # Heroku & Swagger API Documentation
 
