@@ -12,6 +12,7 @@ import swaggerDocument from '../swagger.json';
 
 dotenv.config();
 
+
 const app = express();
 
 // dropTables();
