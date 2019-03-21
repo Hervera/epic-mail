@@ -12,7 +12,7 @@ describe('User authentication Endpoints', () => {
         const user = {
             firstName: 'Herve',
             lastName: 'Nkuri',
-            email: 'hervera@gmail.com',
+            email: 'hervera12@gmail.com',
             password: 'secret'
         };
         chai.request(server)
@@ -31,7 +31,7 @@ describe('User authentication Endpoints', () => {
     // eslint-disable-next-line no-undef
     it('Should be able to login', (done) => {
         const login = {
-            email: 'herveralive@gmail.com',
+            email: 'herve@gmail.com',
             password: 'secret',
         };
         chai.request(server)

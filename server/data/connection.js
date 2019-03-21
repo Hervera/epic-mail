@@ -4,7 +4,7 @@ const pool = new pg.Pool({
     connectionString: process.env.DATABASE_URL
 });
 
-// console.log(process.env.DATABASE_URL);
+console.log(process.env.DATABASE_URL);
 
 export default {
     query(text, params) {

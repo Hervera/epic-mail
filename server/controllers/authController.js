@@ -95,7 +95,7 @@ const users = {
                     return res.status(400).send({ message: 'The credentials you provided is incorrect' });
                 }
 
-                const token = jwt.sign({ id: rows[0].id }, process.env.SECRET_KEY, { expiresIn: "1h" });
+                const token = jwt.sign({ id: rows[0].id }, process.env.SECRET_KEY, { expiresIn: "1d" });
                 // const userData = rows[0];
 
                 const user = rows;
