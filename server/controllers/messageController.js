@@ -87,7 +87,7 @@ const messages = {
     },
 
     async sentEmails(req, res) {
-        const findAllMessages = 'SELECT * FROM messages where receiverId = $1 AND status = $2';
+        const findAllMessages = 'SELECT * FROM messages where senderId = $1 AND status = $2';
         try {
 
             const { rows, rowCount } = await db.query(findAllMessages, [req.user.id, 'sent']);
@@ -173,7 +173,7 @@ const messages = {
     },
 
     async draftEmails(req, res) {
-        const findAllMessages = 'SELECT * FROM messages where receiverId = $1 AND status = $2';
+        const findAllMessages = 'SELECT * FROM messages where senderId = $1 AND status = $2';
         try {
 
             const { rows, rowCount } = await db.query(findAllMessages, [req.user.id, 'draft']);
