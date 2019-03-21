@@ -1,15 +1,15 @@
 import Joi from "joi";
 import moment from "moment";
-import Message from "../models/Message";
-import mock from "../data/mock";
+// import Message from "../models/Message";
 import validate from "../helpers/validation";
-
+import db from '../data/connection';
 
 const messages = {
-    sendMail(req, res) {
+    async sendMail(req, res) {
         const {
-            subject, message, senderId, receiverId, parentMessageId, status,
+            subject, message, receiverId, parentMessageId, status,
         } = req.body;
+
         const { error } = Joi.validate(req.body, validate.messageSchema, { abortEarly: false });
 
         if (error != null) {
@@ -22,128 +22,185 @@ const messages = {
                 error: errors,
             });
         } else {
-            const trueSender = mock.contacts.filter(sender => sender.id === senderId);
-            if (trueSender.length === 0) {
+            // const retrieveSpecificUser = "SELECT * FROM users WHERE id = $1";
+            
+            const sendEmail = "INSERT INTO messages(subject, message, parentMessageid, senderId, receiverId, status, createdOn) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *";
+
+            const senderId = req.user.id;
+            // const messagee = new Message(
+            //     subject, message, parentMessageId, senderId, receiverId, status,
+            // );
+            const values = [
+                subject,
+                message,
+                parentMessageId,
+                senderId,
+                receiverId,
+                status,
+                moment().format("LL")
+            ];
+
+            try {
+                const { rows } = await db.query(sendEmail, values);
+                res.status(201).json({
+                    status: 201,
+                    success: "email sent",
+                    data: rows,
+                });
+            } catch (error) {
+                res.status(500).json({
+                    status: res.statusCode, 
+                    error: `${error}`
+                });
+            }   
+        }
+    },
+
+    async receivedEmails(req, res) {
+
+        const findAllMessages = 'SELECT * FROM messages where receiverId = $1';
+        try {
+
+            const { rows, rowCount } = await db.query(findAllMessages, [req.user.id]);
+
+            if (rows.length === 0) {
                 return res.status(404).json({
                     status: res.statusCode,
-                    error: "The senderId is not registered",
-                });
-            }
-            const trueReceiver = mock.contacts.filter(receiver => receiver.id === receiverId);
-            if (trueReceiver.length === 0) {
-                return res.status(404).json({
-                    status: res.statusCode,
-                    error: "The receiverId is not registered",
-                });
-            }
-            if (senderId === receiverId) {
-                return res.status(400).json({
-                    status: res.statusCode,
-                    error: "The senderId and receiverId must not be the same",
-                });
-            }
-            const id = mock.messages.length + 1;
-            const createdOn = moment().format('MMMM Do YYYY, h:mm:ss a');
-            const messagee = new Message(
-                id, createdOn, subject, message, senderId, receiverId, parentMessageId, status,
-            );
-            mock.messages.push(messagee);
-            if (status === "sent") {
-                return res.status(201).json({
-                    status: res.statusCode, successMessage: "Your message is sent", data: [messagee],
-                });
-            } else if (status === "draft") {
-                return res.status(201).json({
-                    status: res.statusCode, successMessage: "Your message is drafted", data: [messagee],
+                    error: "No received emails found",
                 });
             } else {
-                return res.status(201).json({
-                    status: res.statusCode, successMessage: "Your message is read", data: [messagee],
+                return res.status(200).json({
+                    status: res.statusCode,
+                    successMessage: "Received emails",
+                    total: rowCount,
+                    data: rows,
                 });
             }
-        }
-    },
-
-    receivedEmails(req, res) {
-        if (mock.messages.length === 0) {
-            return res.status(404).json({
-                status: res.statusCode,
-                error: "No received emails found",
-            });
-        } else {
-            return res.status(200).json({
-                status: res.statusCode,
-                successMessage: "Received emails",
-                data: mock.messages,
-            });
-        }
-    },
-
-    sentEmails(req, res) {
-        const sentEmails = mock.messages.filter(email => email.status === "sent");
-        if (sentEmails.length === 0) {
+            
+        } catch (error) {
             return res.status(400).json({
                 status: res.statusCode,
-                successMessage: "No sent email found",
-            });
-        } else {
-            return res.status(200).json({
-                status: res.statusCode,
-                successMessage: "Sent emails",
-                data: [sentEmails],
+                error: `${error}`
             });
         }
+
     },
 
-    receivedReadEmails(req, res) {
-        const readEmails = mock.messages.filter(email => email.status === "read");
-        if (readEmails.length === 0) {
+    async sentEmails(req, res) {
+        const findAllMessages = 'SELECT * FROM messages where receiverId = $1 AND status = $2';
+        try {
+
+            const { rows, rowCount } = await db.query(findAllMessages, [req.user.id, 'sent']);
+
+            if (rows.length === 0) {
+                return res.status(404).json({
+                    status: res.statusCode,
+                    error: "No sent emails found",
+                });
+            } else {
+                return res.status(200).json({
+                    status: res.statusCode,
+                    successMessage: "Sent emails",
+                    total: rowCount,
+                    data: rows,
+                });
+            }
+
+        } catch (error) {
             return res.status(400).json({
                 status: res.statusCode,
-                successMessage: "no received read email found",
-            });
-        } else {
-            return res.status(200).json({
-                status: res.statusCode,
-                successMessage: "Received read emails",
-                data: [readEmails],
+                error: `${error}`
             });
         }
     },
 
-    receivedUnreadEmails(req, res) {
-        const unreadEmails = mock.messages.filter(email => email.status === "unread");
-        if (unreadEmails.length === 0) {
+    async receivedReadEmails(req, res) {
+        const findAllMessages = 'SELECT * FROM messages where receiverId = $1 AND status = $2';
+        try {
+
+            const { rows, rowCount } = await db.query(findAllMessages, [req.user.id, 'read']);
+
+            if (rows.length === 0) {
+                return res.status(404).json({
+                    status: res.statusCode,
+                    error: "No read emails found",
+                });
+            } else {
+                return res.status(200).json({
+                    status: res.statusCode,
+                    successMessage: "read emails",
+                    total: rowCount,
+                    data: rows,
+                });
+            }
+
+        } catch (error) {
             return res.status(400).json({
                 status: res.statusCode,
-                successMessage: "No received unread email found",
-            });
-        } else {
-            return res.status(200).json({
-                status: res.statusCode,
-                successMessage: "Received unread emails",
-                data: [unreadEmails],
+                error: `${error}`
             });
         }
     },
 
-    draftEmails(req, res) {
-        const draftEmails = mock.messages.filter(email => email.status === "draft");
-        if (draftEmails.length === 0) {
+    async receivedUnreadEmails(req, res) {
+        
+
+        const findAllMessages = 'SELECT * FROM messages where receiverId = $1 AND status = $2';
+        try {
+
+            const { rows, rowCount } = await db.query(findAllMessages, [req.user.id, 'unread']);
+
+            if (rows.length === 0) {
+                return res.status(404).json({
+                    status: res.statusCode,
+                    error: "No unread emails found",
+                });
+            } else {
+                return res.status(200).json({
+                    status: res.statusCode,
+                    successMessage: "Unread emails",
+                    total: rowCount,
+                    data: rows,
+                });
+            }
+
+        } catch (error) {
             return res.status(400).json({
                 status: res.statusCode,
-                successMessage: "No draft email found",
-            });
-        } else {
-            return res.status(200).json({
-                status: res.statusCode,
-                successMessage: "Draft emails",
-                data: [draftEmails],
+                error: `${error}`
             });
         }
     },
 
-    showSpecificEmail(req, res) {
+    async draftEmails(req, res) {
+        const findAllMessages = 'SELECT * FROM messages where receiverId = $1 AND status = $2';
+        try {
+
+            const { rows, rowCount } = await db.query(findAllMessages, [req.user.id, 'draft']);
+
+            if (rows.length === 0) {
+                return res.status(404).json({
+                    status: res.statusCode,
+                    error: "No draft emails found",
+                });
+            } else {
+                return res.status(200).json({
+                    status: res.statusCode,
+                    successMessage: "Draft emails",
+                    total: rowCount,
+                    data: rows,
+                });
+            }
+
+        } catch (error) {
+            return res.status(400).json({
+                status: res.statusCode,
+                error: `${error}`
+            });
+        }
+    },
+
+    async showSpecificEmail(req, res) {
         const emailId = parseInt(req.params.id, 10);
         const { error } = Joi.validate(
             {
@@ -158,24 +215,28 @@ const messages = {
                 error: error.details[0].message,
             });
         } else {
-            const emailMessage = mock.messages.find(c => c.id === emailId);
-            for (let i = 0; i < mock.messages.length; i++) {
-                if (mock.messages[i].id === emailId) {
-                    return res.status(200).json({
+
+            const text = 'SELECT * FROM messages WHERE id = $1 AND receiverId = $2';
+            try {
+                const { rows } = await db.query(text, [req.params.id, req.user.id]);
+                if (!rows[0]) {
+                    return res.status(404).json({
                         status: res.statusCode,
-                        successMessage: "Specific Email received",
-                        data: emailMessage,
+                        error: "Email is not found",
                     });
                 }
+                return res.status(200).json({
+                    status: res.statusCode,
+                    successMessage: "Specific Email received",
+                    data: rows[0],
+                });
+            } catch (error) {
+                return res.status(400).send(error);
             }
-            return res.status(404).json({
-                status: res.statusCode,
-                error: "Email is not found",
-            });
         }
     },
 
-    deleteSpecificEmail(req, res) {
+    async deleteSpecificEmail(req, res) {
         const emailId = parseInt(req.params.id, 10);
         const { error } = Joi.validate(
             {
@@ -189,21 +250,23 @@ const messages = {
                 error: error.details[0].message,
             });
         } else {
-            const emailMessage = mock.messages.find(c => c.id === emailId);
-            for (let i = 0; i < mock.messages.length; i++) {
-                if (mock.messages[i].id === emailId) {
-                    mock.messages.splice(i, emailId);
-                    return res.status(200).json({
+            const deleteQuery = 'DELETE FROM messages WHERE id=$1 AND receiverId = $2 returning *';
+            try {
+                const { rows } = await db.query(deleteQuery, [req.params.id, req.user.id]);
+                if (!rows[0]) {
+                    return res.status(404).json({
                         status: res.statusCode,
-                        successMessage: "Email is deleted",
-                        data: emailMessage
+                        error: "Email is not found",
                     });
                 }
+                return res.status(200).json({
+                    status: res.statusCode,
+                    successMessage: "Email is deleted",
+                    data: rows[0],
+                });
+            } catch (error) {
+                return res.status(400).send(error);
             }
-            return res.status(404).json({
-                status: res.statusCode,
-                error: "Email is not found",
-            });
         }
     },
 

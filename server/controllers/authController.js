@@ -10,7 +10,7 @@ import Helper from '../helpers/auth';
 const users = {
 
     async register(req, res) {
-        // const { firstName, lastName, email, password, isAdmin} = req.body;
+        const { firstName, lastName, email, password} = req.body;
 
         const result = Joi.validate(req.body, validate.registerSchema, { abortEarly: false });
 
@@ -29,19 +29,17 @@ const users = {
             // eslint-disable-next-line max-len
             // firstName, lastName, email, password, confirmed, isAdmin, moment().format('MMMM Do YYYY, h:mm:ss a')
             // );
-            // const hash = bcrypt.hashSync(user.password, 10);
-            // user.password = hash;
-
+      
             const confirmed = 0;
             const isAdmin = "false";
-            const hashPassword = bcrypt.hashSync(req.body.password, 10);
+            const hashPassword = bcrypt.hashSync(password, 10);
             const text = `INSERT INTO users(firstName, lastName, email, password, confirmed, isAdmin, createdOn)
             VALUES($1, $2, $3, $4, $5, $6, $7) returning *`;
 
             const values = [
-                req.body.firstName,
-                req.body.lastName,
-                req.body.email,
+                firstName,
+                lastName,
+                email,
                 hashPassword,
                 confirmed,
                 isAdmin,
@@ -54,10 +52,12 @@ const users = {
                 const token = jwt.sign({ id: rows[0].id }, process.env.SECRET_KEY, {
                     expiresIn: 604800 // 1 WEEK
                 });
+              
+                const user = rows;
                 // return success response
                 return res.status(201).send({
                     status: res.statusCode,
-                    data: [{ token, values }],
+                    data: [{token, user}],
                 });
             } catch (error) {
                 if (error.routine === '_bt_check_unique') {
@@ -87,7 +87,7 @@ const users = {
 
         } else {
 
-            const text = 'SELECT id, password FROM users WHERE email = $1;';
+            const text = 'SELECT * FROM users WHERE email = $1;';
             try {
                 const { rows } = await db.query(text, [email]);
                 if (rows.length === 0) {
@@ -103,17 +103,18 @@ const users = {
 
                 const token = jwt.sign({ id: rows[0].id }, process.env.SECRET_KEY, { expiresIn: "1h" });
                 // const userData = rows[0];
+
+                const user = rows;
+                // return success response
                 return res.status(200).send({
                     status: res.statusCode,
-                    data: [{
-                        token
-                    }],
+                    data: [{ token, user }],
                 });
 
             } catch (error) {
                 return res.status(400).send({
                     status: res.statusCode,
-                    error
+                    error: `error ${error}`
                 });
             }
         }

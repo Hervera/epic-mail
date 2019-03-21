@@ -1,8 +1,11 @@
+import jwt from "jsonwebtoken";
+import db from '../data/connection';
+
 // FORMAT OF TOKEN
 // Authorization: Bearer <access_token>
 // Verify Token
 const auth = {
-    verifyToken(req, res, next) {
+    async verifyToken(req, res, next) {
         // Get auth header value
         const bearerHeader = req.headers.authorization;
         // Check if bearer is undefined 
@@ -14,7 +17,24 @@ const auth = {
             // Set the token
             req.token = bearerToken;
             // Next middleware
-            next();
+            try {
+                const user = await jwt.verify(req.token, process.env.SECRET_KEY);
+                const text = 'SELECT * FROM users WHERE id = $1';
+                const { rows } = await db.query(text, [user.id]);
+                if (!rows[0]) {
+                    return res.status(400).send({
+                        status: res.statusCode,
+                        error: 'Token expired'
+                    });
+                }
+                req.user = { id: user.id };
+                next();
+            } catch (error) {
+                return res.status(400).send({
+                    status: res.statusCode,
+                    error: 'Invalid token'
+                });
+            }
         } else {
             // Forbidden
             res.status(403).send({
