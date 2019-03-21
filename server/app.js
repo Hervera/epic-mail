@@ -8,12 +8,14 @@ import userRoutes from './routes/user';
 import messageRoutes from './routes/messages';
 import groupRoutes from './routes/groups';
 import swaggerDocument from '../swagger.json';
+import { createTables } from './data/create_tables';
 
 dotenv.config();
 
 
 const app = express();
 
+createTables();
 
 // CORS
 app.all('/*', (req, res, next) => {
