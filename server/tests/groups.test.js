@@ -16,7 +16,7 @@ before((done) => {
     chai.request(server).post('/api/v2/auth/login')
         .send(user)
         .end((err, res) => {
-            authToken = res.body.data.token; // save the token
+            authToken = res.body.data[0].token; // save the token
             done();
         });
 });

@@ -16,7 +16,8 @@ before((done) => {
     chai.request(server).post('/api/v2/auth/login')
         .send(user)
         .end((err, res) => {
-            authToken = res.body.data.token; // save the token
+
+            authToken = res.body.data[0].token; // save the token
             done();
         });
 });
@@ -25,11 +26,49 @@ before((done) => {
 // eslint-disable-next-line no-undef
 describe("Messaging endpoints", () => {
     // eslint-disable-next-line no-undef
-    it("Should send an email with sent status", (done) => {
+    it("Should send an email if Unauthorized(No token provided)", (done) => {
         const sentMessage = {
             subject: "Testing sender subject",
-            message: "Testing sender message",
-            senderId: 1,
+            message: "my message",
+            receiverId: 2,
+            parentMessageId: 4,
+            status: "sent",
+        };
+        chai.request(server)
+            .post("/api/v2/messages")
+            .send(sentMessage)
+            .end((err, res) => {
+                res.body.should.be.a("object");
+                res.body.should.have.status(403);
+                done();
+            });
+    });
+
+    // eslint-disable-next-line no-undef
+    it("Should not send if a user has an invalid token", (done) => {
+        const sentMessage = {
+            subject: "Testing sender subject",
+            message: "my message",
+            receiverId: 2,
+            parentMessageId: 4,
+            status: "sent",
+        };
+        chai.request(server)
+            .post("/api/v2/messages")
+            .send(sentMessage)
+            .set('Authorization', `Bearer kkkkk`)
+            .end((err, res) => {
+                res.body.should.be.a("object");
+                res.body.should.have.status(400);
+                done();
+            });
+    });
+
+    // eslint-disable-next-line no-undef
+    it("Should not send an email if one important field is not there", (done) => {
+        const sentMessage = {
+            subject: "Testing sender subject",
+            message: "",
             receiverId: 2,
             parentMessageId: 4,
             status: "sent",
@@ -40,79 +79,11 @@ describe("Messaging endpoints", () => {
             .set('Authorization', `Bearer ${authToken}`)
             .end((err, res) => {
                 res.body.should.be.a("object");
+                res.body.should.have.status(400);
                 done();
             });
     });
 
-    // eslint-disable-next-line no-undef
-    it("Should send an email with read status", (done) => {
-        const readMessage = {
-            subject: "Testing sender subject",
-            message: "Testing sender message",
-            senderId: 2,
-            receiverId: 1,
-            parentMessageId: 5,
-            status: "read",
-        };
-        chai.request(server)
-            .post("/api/v2/messages")
-            .send(readMessage)
-            .set('Authorization', `Bearer ${authToken}`)
-            .end((err, res) => {
-                res.body.should.be.a("object");
-                // res.body.should.have.status(201);
-                // res.body.should.have.property("status").eql(201);
-                // res.body.should.have.property("successMessage").eql("Your message is read");
-                // res.body.data.should.be.a("array");
-                done();
-            });
-    });
-
-    // eslint-disable-next-line no-undef
-    it("Should send an email with draft status", (done) => {
-        const draftMessage = {
-            subject: "Testing sender subject",
-            message: "Testing sender message",
-            senderId: 3,
-            receiverId: 1,
-            parentMessageId: 6,
-            status: "draft",
-        };
-        chai.request(server)
-            .post("/api/v2/messages")
-            .send(draftMessage)
-            .set('Authorization', `Bearer ${authToken}`)
-            .end((err, res) => {
-                res.body.should.be.a("object");
-                // res.body.should.have.status(201);
-                // res.body.should.have.property("status").eql(201);
-                // res.body.should.have.property("successMessage").eql("Your message is drafted");
-                // res.body.data.should.be.a("array");
-                done();
-            });
-    });
-
-
-    // eslint-disable-next-line no-undef
-    it("Should not send an email when the senderId and receiverId are the same", (done) => {
-        const falseReadMessage = {
-            subject: "Testing sender subject",
-            message: "Testing sender message",
-            senderId: 1,
-            receiverId: 1,
-            parentMessageId: 4,
-            status: "read",
-        };
-        chai.request(server)
-            .post("/api/v2/messages")
-            .send(falseReadMessage)
-            .set('Authorization', `Bearer ${authToken}`)
-            .end((err, res) => {
-                res.body.should.be.a("object");
-
-                done();
-            });
-    });
 
     // eslint-disable-next-line no-undef
     it("Should not send an email when the receiverId is not registered", (done) => {
