@@ -38,6 +38,7 @@ describe('Group Endpoint', () => {
             .set('Accept', 'Application/JSON')
             .end((err, res) => {
                 res.body.should.be.a('object');
+                 res.body.should.have.status(201);
                 done();
             });
     });
@@ -125,5 +126,22 @@ describe('Group Endpoint', () => {
             });
     });
 
+    // eslint-disable-next-line no-undef
+    it('Should create a new group', (done) => {
+        const group = {
+            memberId: '1',
+            userRole: '2',
+        };
 
+        chai.request(server)
+            .post('/api/v2/groups/1/users')
+            .send(group)
+            .set('Authorization', `Bearer ${authToken}`)
+            .set('Accept', 'Application/JSON')
+            .end((err, res) => {
+                res.body.should.be.a('object');
+                res.body.should.have.status(201);
+                done();
+            });
+    });
 });

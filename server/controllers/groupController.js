@@ -28,7 +28,10 @@ const groups = {
 
         try {
             const { rows } = await db.query(text, values);
-            return res.status(201).send(rows[0]);
+            res.status(201).json({
+                status: 201,
+                data: rows,
+            });
         } catch (error) {
             return res.status(400).send(error);
         }
