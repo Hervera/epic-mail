@@ -4,7 +4,12 @@
 
 # Description
 
-<p>EPIC mail is a web app that facilitates people to exchange messages over the internet. The app has authentication and functionalites where each user has to register and then login. In order have access for messaging pages. A user can be able to make CRUD operations for messaging.</p>
+<p>EPIC mail is a web app that facilitates people to exchange messages over the internet. 
+The app has authentication and functionalites where each user has to register and then login. 
+A user can be able to make CRUD operations for messaging(Inbox, read messages, retract sent messages,
+send a message to individuals, save an email as draft and send it later or delete it), 
+Create a group and add members to that group and send a message to a group.
+</p>
 
 <p>Below, you can see all EPIC mail features listed.</p>
 
@@ -50,6 +55,15 @@ When you need to test the application and view test coverate run:
 * GET `/api/v2/messages/draft` Fetch all draft emails. 
 * GET `/api/v2/messages/<message-id>` Fetch a specific email record.
 * DELETE `/api/v2/messages/<message-id>` Delete a specific email record.
+
+* POST `/api/v2/groups` Create a group.
+* GET `/api/v2/groups` Fetch all groups records.
+* PATCH `/api/v2/groups/<group-id>` Edit the name of a specific group.
+* DELETE `/api/v2/groups/<group-id>/users` Delete a specific group.
+* POST `/api/v2/groups` Add a user to a group.
+* DELETE `/api/v2/groups/<group-id>/users/<user-id>` Delete a user from a specific group.
+* POST `/api/v2/groups/<group-id>/messages` Create or send an email to a group
+
 
 # Heroku & Swagger API Documentation
 

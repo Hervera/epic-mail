@@ -10,6 +10,8 @@ const messages = {
             subject, message, receiverId, parentMessageId, status,
         } = req.body;
 
+        const senderId = req.user.id;
+
         const { error } = Joi.validate(req.body, validate.messageSchema, { abortEarly: false });
 
         if (error != null) {
@@ -22,37 +24,41 @@ const messages = {
                 error: errors,
             });
         } else {
-            // const retrieveSpecificUser = "SELECT * FROM users WHERE id = $1";
+            const retrieveSpecificUser = "SELECT * FROM users WHERE id = $1";
+
+            const { rows } = await db.query(retrieveSpecificUser, [receiverId]);
             
-            const sendEmail = "INSERT INTO messages(subject, message, parentMessageid, senderId, receiverId, status, createdOn) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *";
+            if (rows.length === 0) {
+                res.status(404).json({ status: 404, error: "The receiver is not registered" });
+            } else if (senderId === receiverId) {
+                res.status(400).json({ status: 400, error: "The sender and receiver must not be the same" });
+            } else {
+            
+                const sendEmail = "INSERT INTO messages(subject, message, parentMessageid, senderId, receiverId, status, createdOn) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *";
+                const values = [
+                    subject,
+                    message,
+                    parentMessageId,
+                    senderId,
+                    receiverId,
+                    status,
+                    moment().format("LL")
+                ];
 
-            const senderId = req.user.id;
-            // const messagee = new Message(
-            //     subject, message, parentMessageId, senderId, receiverId, status,
-            // );
-            const values = [
-                subject,
-                message,
-                parentMessageId,
-                senderId,
-                receiverId,
-                status,
-                moment().format("LL")
-            ];
-
-            try {
-                const { rows } = await db.query(sendEmail, values);
-                res.status(201).json({
-                    status: 201,
-                    success: "email sent",
-                    data: rows,
-                });
-            } catch (error) {
-                res.status(500).json({
-                    status: res.statusCode, 
-                    error: `${error}`
-                });
-            }   
+                try {
+                    const { rows } = await db.query(sendEmail, values);
+                    res.status(201).json({
+                        status: 201,
+                        success: "email sent",
+                        data: rows,
+                    });
+                } catch (error) {
+                    res.status(500).json({
+                        status: res.statusCode, 
+                        error: `${error}`
+                    });
+                }   
+            }
         }
     },
 
@@ -225,11 +231,15 @@ const messages = {
                         error: "Email is not found",
                     });
                 }
-                return res.status(200).json({
-                    status: res.statusCode,
-                    successMessage: "Specific Email received",
-                    data: rows[0],
+                const sql3 = `UPDATE messages SET status='read' WHERE id='${req.params.id}' RETURNING *`;
+                db.query(sql3).then((result) => {
+                    res.json({
+                        status: res.statusCode,
+                        successMessage: "Specific Email received",
+                        data: result.rows,
+                    });
                 });
+
             } catch (error) {
                 return res.status(400).send(error);
             }

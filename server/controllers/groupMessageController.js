@@ -24,34 +24,42 @@ const groupMessages = {
                 error: errors,
             });
         } else {
-            // const retrieveSpecificUser = "SELECT * FROM groups WHERE id = $1";
 
-            const sendEmail = "INSERT INTO group_messages(subject, message, parentMessageid, senderId, groupId, status, createdOn) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *";
+            const specificMessage = "SELECT * FROM groups WHERE id = $1";
 
-            const senderId = req.user.id;
- 
-            const values = [
-                subject,
-                message,
-                parentMessageId,
-                senderId,
-                req.params.groupId,
-                status,
-                moment().format("LL")
-            ];
+            const { rows } = await db.query(specificMessage, [req.params.groupId]);
 
-            try {
-                const { rows } = await db.query(sendEmail, values);
-                res.status(201).json({
-                    status: 201,
-                    success: "email sent",
-                    data: rows,
-                });
-            } catch (error) {
-                res.status(500).json({
-                    status: res.statusCode,
-                    error: `${error}`
-                });
+            if (rows.length === 0) {
+                res.status(404).json({ status: 404, error: "The group is not registered" });
+            } else {
+
+                const sendEmail = "INSERT INTO group_messages(subject, message, parentMessageid, senderId, groupId, status, createdOn) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *";
+
+                const senderId = req.user.id;
+    
+                const values = [
+                    subject,
+                    message,
+                    parentMessageId,
+                    senderId,
+                    req.params.groupId,
+                    status,
+                    moment().format("LL")
+                ];
+
+                try {
+                    const { rows } = await db.query(sendEmail, values);
+                    res.status(201).json({
+                        status: 201,
+                        success: "email sent",
+                        data: rows,
+                    });
+                } catch (error) {
+                    res.status(500).json({
+                        status: res.statusCode,
+                        error: `${error}`
+                    });
+                }
             }
         }
     }
