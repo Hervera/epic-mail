@@ -1,4 +1,4 @@
-# EPIC Mail - Andela Developer Challenge
+# EPIC Mail
 
 [![Build Status](https://travis-ci.org/Hervera/epic-mail.svg?branch=develop)](https://travis-ci.org/Hervera/epic-mail)  [![Coverage Status](https://coveralls.io/repos/github/Hervera/epic-mail/badge.svg)](https://coveralls.io/github/Hervera/epic-mail) [![Maintainability](https://api.codeclimate.com/v2/badges/8f441dac47faa702f4b2/maintainability)](https://codeclimate.com/github/Hervera/epic-mail/maintainability)
 
